@@ -1,0 +1,57 @@
+import * as React from 'react';
+import { DefaultButton, Text, Stack, Modal, IconButton } from '@fluentui/react';
+import { useBoolean } from '@fluentui/react-hooks';
+
+const FluentWindow = () => {
+  const [isModalOpen, { setTrue: openModal, setFalse: closeModal }] = useBoolean(false);
+
+  return (
+    <div>
+      {/* Button to open the Fluent Window */}
+      <DefaultButton onClick={openModal} text="Open Fluent Window" />
+
+      {/* Modal Window */}
+      <Modal
+        isOpen={isModalOpen}
+        onDismiss={closeModal}
+        isBlocking={false}
+        containerClassName="fluent-window-modal"
+      >
+        {/* Title Bar */}
+        <div className="fluent-window-header">
+          <Text variant="xLarge">Fluent UI Window</Text>
+          <IconButton iconProps={{ iconName: 'Cancel' }} onClick={closeModal} />
+        </div>
+
+        {/* Content Area */}
+        <Stack tokens={{ childrenGap: 10 }} padding={20}>
+          <Text>This is a simple Fluent UI window.</Text>
+          <Text>You can add more components here!</Text>
+
+          {/* Close Button */}
+          <DefaultButton onClick={closeModal} text="Close Window" />
+        </Stack>
+      </Modal>
+
+      {/* Styles */}
+      <style jsx>{`
+        .fluent-window-modal {
+          width: 500px;
+          padding: 20px;
+          background: white;
+          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .fluent-window-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eaeaea;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default FluentWindow;
